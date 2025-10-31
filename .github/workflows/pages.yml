@@ -2,7 +2,7 @@ name: Deploy WEB Online to GitHub Pages
 
 on:
   push:
-    branches: ["main"]   # if your default branch is master, change to ["master"]
+    branches: ["main"]   # If your default branch is master, change to ["master"]
   workflow_dispatch:
 
 permissions:
@@ -17,9 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # If you have a pinned jsDelivr URL for the FULL WEB JSON, uncomment DATA_URL and replace the URL:
-    # env:
-    #   DATA_URL: https://cdn.jsdelivr.net/gh/USER/REPO@COMMIT/path/to/web.json
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,6 +25,42 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
+      # Build full WEB dataset locally (data/web.json) from public source
+      - name: Generate full WEB data (writes data/web.json)
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'fs';
+          const books = JSON.parse(fs.readFileSync('books.json','utf8'));
+          const base = 'https://raw.githubusercontent.com/TehShrike/world-english-bible/master/json';
+          const toFile = s => s.toLowerCase().replace(/ /g,'');
+          const out = {};
+          let total = 0;
+
+          for (const { name } of books) {
+            const url = `${base}/${toFile(name)}.json`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`Fetch failed ${res.status} for ${url}`);
+            const arr = await res.json();
+
+            const book = {};
+            for (const row of arr) {
+              const c = row?.chapterNumber, v = row?.verseNumber, val = row?.value || '';
+              if (!c || !v) continue;
+              if (row.type !== 'paragraph text' && row.type !== 'line text') continue;
+              (book[c] ??= {}), (book[c][v] = (book[c][v] ? book[c][v] + ' ' : '') + val.trim());
+            }
+            for (const c in book) for (const v in book[c]) {
+              book[c][v] = book[c][v].replace(/\s+/g,' ').trim();
+              total++;
+            }
+            out[name] = book;
+          }
+
+          fs.mkdirSync('data', { recursive: true });
+          fs.writeFileSync('data/web.json', JSON.stringify(out));
+          console.log(`Wrote data/web.json with ~${total} verses`);
+          NODE
 
       - name: Build static site
         run: node build.mjs
