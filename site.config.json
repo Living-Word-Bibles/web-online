@@ -1,0 +1,19 @@
+{
+  "brand": {
+    "title": "The Holy Bible: World English Bible",
+    "publisher": "Living Word Bibles",
+    "logoUrl": "https://www.livingwordbibles.com/s/LivingWordBibles01.png"
+  },
+  "links": {
+    "holyBibleUrl": "https://www.the-holy-bible.online",
+    "instagram": "https://www.instagram.com/living.word.bibles/"
+  },
+  "share": {
+    "order": ["facebook", "instagram", "x", "linkedin", "email", "copy"]
+  },
+  "adsense": {
+    "publisherId": "ca-pub-5303063222439969"
+  },
+  "copyright": "Copyright © 2025 | Living Word Bibles — All Scripture from the World English Bible (Public Domain).",
+  "adsTxt": "google.com, pub-5303063222439969, DIRECT, f08c47fec0942fa0"
+}
