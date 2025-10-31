@@ -171,7 +171,10 @@ function pageTemplate({ bookName, bookSlug, c, v, verseText, prev, next }) {
     ${adsense()}
   </main>
   <footer>
-    Copyright © 2025 | ${PUBLISHER} — All Scripture from the World English Bible (Public Domain)
+    Copyright © 2025 | Living Word Bibles | All Rights Reserved |
+    <a href="https://www.livingwordbibles.com" target="_blank" rel="noopener">www.livingwordbibles.com</a>
+  </footer>
+
   </footer>
 </body>
 </html>`;
