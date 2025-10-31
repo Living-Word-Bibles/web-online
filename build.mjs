@@ -222,13 +222,16 @@ async function main(){
     write(out, html);
   }
 
-  // robots & sitemap
-  write(path.join(OUT_DIR, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE_ORIGIN}/sitemap.xml\n`);
-  const urls = refs.map(r => `<url><loc>${canon(slug(r.bookName), r.c, r.v)}</loc></url>`).join('');
-  write(path.join(OUT_DIR, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`);
+// robots & sitemap
+write(path.join(OUT_DIR, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE_ORIGIN}/sitemap.xml\n`);
+const urls = refs.map(r => `<url><loc>${canon(slug(r.bookName), r.c, r.v)}</loc></url>`).join('');
+write(path.join(OUT_DIR, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`);
 
-  // CNAME for custom domain
-  write(path.join(OUT_DIR, 'CNAME'), 'web.livingwordbibles.com');
+// ads.txt (AdSense)
+write(path.join(OUT_DIR, 'ads.txt'), 'google.com, pub-5303063222439969, DIRECT, f08c47fec0942fa0');
+
+// CNAME for custom domain
+write(path.join(OUT_DIR, 'CNAME'), 'web.livingwordbibles.com');
 
   console.log(`Built ${refs.length} verse pages → ${OUT_DIR}`);
 }
