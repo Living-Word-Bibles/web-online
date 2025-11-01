@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 // ---- SITE CONFIG ----
 const OUT_DIR = path.join(__dirname, 'dist');
 const SITE_ORIGIN = 'https://web.livingwordbibles.com';
-const THE_HOLY_BIBLE_URL = 'https://www.the-holy-bible.online';
+const THE_HOLY_BIBLE_URL = 'https://www.livingwordbibles.com/read-the-bible-online/web';
 const LOGO_URL = 'https://www.livingwordbibles.com/s/LivingWordBibles01.png';
 const TITLE = 'The Holy Bible: World English Bible';
 const PUBLISHER = 'Living Word Bibles';
@@ -121,10 +121,14 @@ function pageTemplate({ bookName, bookSlug, c, v, verseText, prev, next }) {
   <meta property="og:url" content="${url}" />
   <meta property="og:type" content="article" />
   <meta name="robots" content="index,follow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root { --fg:#111; --muted:#6b7280; --bg:#fff; --card:#fff; }
     * { box-sizing:border-box; }
-    body { margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; color:var(--fg); background:var(--bg); }
+    body { margin:0; font:18px/1.7 'EB Garamond', Georgia, 'Times New Roman', serif; color:var(--fg); background:var(--bg); }
     header { text-align:center; padding:28px 16px 12px; }
     header img { width:120px; height:auto; display:block; margin:0 auto 10px; }
     h1 { font-size:22px; margin:0 0 6px; font-weight:700; }
